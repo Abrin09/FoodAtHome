@@ -1,0 +1,39 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: abrahamsc-internal-deployment
+  labels:
+    app: abrahamsc-internal
+spec:
+  selector:
+    matchLabels:
+      app: abrahamsc-internal
+  replicas: 2
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      name: abrahamsc-internal
+      labels:
+        app: abrahamsc-internal
+    spec:
+      containers:
+      - name: abrahamsc-internal-container
+        image: abrin09/servicio-interno:1.0
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: abrahamsc-internal-service
+  labels:
+    app: abrahamsc-internal
+spec:
+  ports:
+    - port: 8070
+      targetPort: 8070
+      protocol: TCP
+      name: abrahamsc-internal
+  selector:
+    app: abrahamsc-internal
+  type: ClusterIP

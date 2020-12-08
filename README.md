@@ -1,3 +1,30 @@
+### Despliegue en Minikube
+
+
+Para desplegar la aplicación hay que hacer uso de los siguientes comandos:
+- `$ minkube start`
+- `$ kubectl create -f secret.yaml`
+- `$ kubectl create -f mysql.yaml`
+- `$ kubectl create -f servicio-interno.yaml`
+- `$ kubectl create -f front-web.yaml`
+
+
+Para obtener ip y puerto para acceder a la web:
+
+- `$ minikube ip`
+- Es recomendable forzar la conexión HTTP segura utilizando `https://`
+
+
+Para eliminar la aplicación hay que hacer uso de los siguientes comandos:
+
+- `$ minkube start`
+- `$ kubectl create -f secret.yaml`
+- `$ kubectl create -f mysql.yaml`
+- `$ kubectl create -f servicio-interno.yaml`
+- `$ kubectl create -f front-web.yaml`
+
+
+
 # FoodAtHome
 
 FoodAtHome es una web de pedidos de comida a domicilio, en la cual, podrás elaborar tu propio menú combinando los distintos productos disponibles y tenerlos rápidamente en casa para disfrutar de ellos

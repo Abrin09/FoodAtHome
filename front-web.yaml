@@ -1,0 +1,47 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: abrahamsc-front-web-deployment
+  labels:
+    app: abrahamsc-front-web
+spec:
+  selector:
+    matchLabels:
+      app: abrahamsc-front-web
+  replicas: 2
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      name: abrahamsc-front-web
+      labels:
+        app: abrahamsc-front-web
+    spec:
+      containers:
+      - name: abrahamsc-front-web-container
+        image: abrin09/front-web:1.0
+        env:
+          - name: MYSQL_ROOT_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: abrahamsc-secrets
+                key: mysql-root-password
+          - name: MYSQL_DATABASE
+            value: test
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: abrahamsc-front-web-service
+  labels:
+    app: abrahamsc-front-web
+spec:
+  ports:
+    - port: 443
+      targetPort: 8443
+      protocol: TCP
+      name: abrahamsc-front-web
+  selector:
+    app: abrahamsc-front-web
+  type: LoadBalancer
